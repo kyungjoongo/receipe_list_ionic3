@@ -7,8 +7,11 @@ import { HttpModule } from '@angular/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { ReceipeListPage } from '../pages/home/receipe_list';
 import { List01Page} from "../pages/list01/list01";
+import { AboutPage} from "../pages/about/about";
+
+
 import { HttpProvider } from '../providers/http/http';
 import { AdMobPro } from '@ionic-native/admob-pro';
 import { GlobalVars} from "./constants";
@@ -16,8 +19,9 @@ import { GlobalVars} from "./constants";
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    List01Page
+    ReceipeListPage,
+    List01Page,
+    AboutPage
   ],
   imports: [
     BrowserModule,
@@ -27,8 +31,9 @@ import { GlobalVars} from "./constants";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    List01Page
+    ReceipeListPage,
+    List01Page,
+    AboutPage
   ],
   providers: [
     StatusBar,
