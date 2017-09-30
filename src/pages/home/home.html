@@ -1,14 +1,68 @@
 <ion-header>
+  <!--네브바 메뉴 초클 -->
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>recepi_list</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+
+    <!--##### one elementstart ######-->
+    <ion-card text-wrap *ngFor="let item of newsData" style="width: 100%">
+      <img (click)="openWebPage(item)" style="height: 190px; width:535px "
+           src="{{imageUrl}}receipeImage/{{item.image}}">
+      <ion-card-content>
+        <ion-card-title>
+          {{item.title}}
+        </ion-card-title>
+        <p>
+          {{item.material}}
+        </p>
+      </ion-card-content>
+      <!--하단 로우-->
+      <ion-row class="row" no-padding="">
+        <ion-col class="col" text-left="">
+          <button clear="" color="energize" icon-start="" ion-button="" small=""
+                  class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios button-clear-ios-danger">
+            <span class="button-inner">
+                <ion-icon name="md-star" role="img" class="icon icon-ios ion-ios-musical-notes"
+                          aria-label="musical notes"></ion-icon>
+                Bookmark
+            </span>
+            <div class="button-effect"></div>
+          </button>
+        </ion-col>
+        <ion-col class="col" text-right="">
+          <button clear="" color="danger" icon-start="" ion-button="" small=""
+                  class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios button-clear-ios-danger"><span
+            class="button-inner">
+          <ion-icon name="share-alt" role="img" class="icon icon-ios ion-ios-share-alt"
+                    aria-label="share alt"></ion-icon>
+          Share
+        </span>
+            <div class="button-effect"></div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <!--##### end ######-->
+    <!--##### end ######-->
+    <!--##### end ######-->
+
+
+  </ion-list>
 </ion-content>
