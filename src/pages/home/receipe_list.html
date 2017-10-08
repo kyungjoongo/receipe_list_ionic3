@@ -1,68 +1,85 @@
 <ion-header class="energized">
-  <!--네브바 메뉴 초클 -->
-  <ion-navbar color="secondary" >
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title >래시피 리스트</ion-title>
-  </ion-navbar>
+    <!--네브바 메뉴 초클 -->
+    <ion-navbar color="secondary">
+
+
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+
+        </button>
+        <!-- <ion-buttons end>
+		 <button (click)="openModal()" >
+		     <ion-icon name="search" ></ion-icon>
+		 </button>
+
+	   </ion-buttons>-->
+        <ion-title>래시피 리스트</ion-title>
+    </ion-navbar>
+
+    <!--<ion-toolbar primary>
+        <ion-searchbar (ionInput)="getSearchItems($event)" autocorrect="off"></ion-searchbar>
+    </ion-toolbar>-->
 </ion-header>
 
 <ion-content padding>
 
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-      pullingIcon="arrow-dropdown"
-      pullingText="Pull to refresh"
-      refreshingSpinner="circles"
-      refreshingText="Refreshing...">
-    </ion-refresher-content>
-  </ion-refresher>
 
-  <ion-list>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Pull to refresh"
+            refreshingSpinner="circles"
+            refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
 
-    <!--##### one elementstart ######-->
-    <ion-card text-wrap *ngFor="let item of newsData" >
-      <img (click)="openWebPage(item)" class="object-fit-cover"
-           src="{{imageUrl}}receipeImage/{{item.image}}">
-      <ion-card-content>
-        <ion-card-title>
-          {{item.title}}
-        </ion-card-title>
-        <p>
-          {{item.material}}
-        </p>
-      </ion-card-content>
-      <!--하단 로우-->
-      <ion-row class="row" no-padding="">
-        <ion-col class="col" text-left="">
-          <button clear="" color="energize" icon-start="" ion-button="" small=""
-                  class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios button-clear-ios-danger">
+    <ion-list>
+        <ion-card text-wrap *ngFor="let post of posts">
+            <img class="object-fit-cover" src="{{imageUrl}}receipeImage/{{post.image}}" />
+
+            <ion-card-content>
+                <ion-card-title (click)="openWebPage(post)">
+                    {{post.title}}
+                </ion-card-title>
+                <p>
+                    {{post.material}}
+                </p>
+            </ion-card-content>
+            <!--하단 로우-->
+            <ion-row class="row" no-padding="">
+                <ion-col class="col" text-left="">
+                    <button clear="" color="energize" icon-start="" ion-button="" small=""
+                            class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios button-clear-ios-danger">
             <span class="button-inner">
                 <ion-icon name="md-star" role="img" class="icon icon-ios ion-ios-musical-notes"
                           aria-label="musical notes"></ion-icon>
                 Bookmark
             </span>
-            <div class="button-effect"></div>
-          </button>
-        </ion-col>
-        <ion-col class="col" text-right="">
-          <button clear="" color="danger" icon-start="" ion-button="" small=""
-                  class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios button-clear-ios-danger"><span
-            class="button-inner">
+                        <div class="button-effect"></div>
+                    </button>
+                </ion-col>
+                <ion-col class="col" text-right="">
+                    <button clear="" color="danger" icon-start="" ion-button="" small=""
+                            class="disable-hover button button-ios button-clear button-clear-ios button-small button-small-ios button-clear-ios-danger"><span
+                        class="button-inner">
           <ion-icon name="share-alt" role="img" class="icon icon-ios ion-ios-share-alt"
                     aria-label="share alt"></ion-icon>
           Share
         </span>
-            <div class="button-effect"></div>
-          </button>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-    <!--##### end ######-->
-    <!--##### end ######-->
-    <!--##### end ######-->
+                        <div class="button-effect"></div>
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+        <!--##### end ######-->
+        <!--##### end ######-->
+        <!--##### end ######-->
 
 
-  </ion-list>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+
 </ion-content>

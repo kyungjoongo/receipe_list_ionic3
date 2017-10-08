@@ -1,13 +1,16 @@
 receipe-list {
 
+    .energized {
+        background-color: yellow;
+    }
 
-  .energized{
-    background-color: yellow;
-  }
+    .object-fit-cover {
+        max-height: 200px;
+        width: 100%;
+        object-fit: cover; /*magic*/
+    }
 
-  .object-fit-cover {
-    max-height: 200px;
-    width: 100%;
-    object-fit: cover; /*magic*/
-  }
+    .bar .button.button-icon:before {
+        font-size: 40px;
+    }
 }
