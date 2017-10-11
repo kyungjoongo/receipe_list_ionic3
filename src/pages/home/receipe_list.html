@@ -1,8 +1,6 @@
 <ion-header class="energized">
     <!--네브바 메뉴 초클 -->
     <ion-navbar color="secondary">
-
-
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
 
@@ -19,9 +17,12 @@
     <!--<ion-toolbar primary>
         <ion-searchbar (ionInput)="getSearchItems($event)" autocorrect="off"></ion-searchbar>
     </ion-toolbar>-->
+
 </ion-header>
 
-<ion-content padding>
+<ion-content class="card-background-page">
+<!--    <ion-searchbar  [(ngModel)]="searchTerm" (click)="openModal()"></ion-searchbar>-->
+
 
 
     <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -34,17 +35,18 @@
     </ion-refresher>
 
     <ion-list>
-        <ion-card text-wrap *ngFor="let post of posts">
+        <ion-card *ngFor="let post of posts">
+            <ion-item (click)="openWebPage(post)" >
+                <h2>{{post.title}}</h2>
+            </ion-item>
+
             <img class="object-fit-cover" src="{{imageUrl}}receipeImage/{{post.image}}" />
 
-            <ion-card-content>
-                <ion-card-title (click)="openWebPage(post)">
-                    {{post.title}}
-                </ion-card-title>
-                <p>
-                    {{post.material}}
-                </p>
-            </ion-card-content>
+            <!--  <ion-card-content>
+			<p>{{post.material}}</p>
+		  </ion-card-content>-->
+
+
             <!--하단 로우-->
             <ion-row class="row" no-padding="">
                 <ion-col class="col" text-left="">

@@ -6,9 +6,7 @@ import {GlobalVars} from "../../app/constants";
 import {AdMobPro} from "@ionic-native/admob-pro";
 import {Platform, ModalController} from "ionic-angular";
 import {LocalNotifications} from '@ionic-native/local-notifications';
-import {SampleModalPage} from "../sample-modal/sample-modal";
-
-import * as moment from 'moment';
+import {SearchModalPage} from "../search-modal/search-modal";
 
 @Component({
     selector: 'receipe-list',
@@ -32,13 +30,8 @@ export class ReceipeListPage {
         , private admob: AdMobPro
         , private platform: Platform
         , public alertCtrl: AlertController, public localNotifications: LocalNotifications
+        , public modalCtrl: ModalController
         , public modalcontroller: ModalController) {
-
-
-        platform.ready().then(() => {
-
-
-        });//plafFOrm Ready End
 
         this.imageUrl = globalVars.imageFetchUrl;
         this.loading = this.loadingController.create({
@@ -48,7 +41,31 @@ export class ReceipeListPage {
 
         this.getData(this.loading, '', this.pageNo);
 
+        //this.setFilteredItems();
+
     }//컨스트럭터 end
+
+
+    /*
+
+        setFilteredItems(searchTerm: string) {
+
+            if (this.searchTerm == '') {
+                //   alert('다시리스트 불러오자');
+                this.getData(this.loading, '', 1);
+            } else {
+                this.posts = this.getData2(this.loading, searchTerm, "0");
+            }
+
+            this.posts = this.posts.filter((item) => {
+                if (item.title.indexOf(searchTerm) > -1) {
+                    console.log('검색에 해당' + item.title);
+                }
+
+                return item.title.indexOf(searchTerm) > -1;
+            });
+        }
+    */
 
 
     /**
@@ -56,11 +73,11 @@ export class ReceipeListPage {
      * @param refresher
      */
     doRefresh(refresher) {
-     /*   var loading = this.loadingController.create({
-            content: '<ion-spinner></ion-spinner>'
-        });
-        loading.present();
-*/
+        /*   var loading = this.loadingController.create({
+               content: '<ion-spinner></ion-spinner>'
+           });
+           loading.present();
+   */
         this.pageNo = 1;
 
         this.getData(this.loading, '', this.pageNo);
@@ -83,9 +100,6 @@ export class ReceipeListPage {
 
 
     getData(loading: any, searchTerm: string, pageNo) {
-        //loading.present();
-
-        // alert(this.pageNo);
 
         this.httpProvider.getJsonData(searchTerm, pageNo).subscribe(jsonResult => {
                 this.posts = jsonResult;
@@ -100,6 +114,14 @@ export class ReceipeListPage {
                 // alert('완료했어요 ~~~');
             }
         );
+    }
+
+    getData2(loading: any, searchTerm: string, pageNo): any[] {
+        let _result: any[] = this.httpProvider.getJsonData(searchTerm, pageNo).subscribe(jsonResult => {
+            return jsonResult;
+        });
+
+        return _result;
     }
 
     doInfinite(infiniteScroll: any) {
@@ -131,27 +153,42 @@ export class ReceipeListPage {
 
     }
 
-    /*openModal() {
+    openModal() {
+        /*let obj = {userId: '1', name: 'Bob', email: 'kyungjoongo@unicorn.com'};
+        let myModal = this.modalcontroller.create(SampleModalPage, obj);*/
 
-        let obj = {userId: '1', name: 'Bob', email: 'kyungjoongo@unicorn.com'};
-
-        let myModal = this.modalcontroller.create(SampleModalPage, obj);
+        let modal = this.modalCtrl.create(SearchModalPage);
+        modal.present();
 
         //모달 윈도우가 해제 되었을떄 이벤트
-        myModal.onDidDismiss(data => {
+        modal.onDidDismiss(data => {
             // alert("검색어는-->"+ data.searchTerm);
             var loading = this.loadingController.create({
                 content: '<ion-spinner></ion-spinner>'
             });
 
 
-            this.getData(loading, data.searchTerm);
+            this.httpProvider.getJsonData(data.searchTerm, 1).subscribe(jsonResult => {
+                    this.posts = jsonResult;
+
+                    // alert(JSON.stringify(jsonResult));
+                    //this.initializeItems();
+                    /* console.log(JSON.stringify(this.posts));*/
+                },
+                error => {
+                    alert('애러다 이놈아');
+                },
+                () => {
+                    // loading.dismiss();
+                    // alert('완료했어요 ~~~');
+                }
+            );
 
 
         });
 
-        myModal.present();
-    }*/
+
+    }
 
     /*getSearchItems(event: any) {
        this.initializeItems();

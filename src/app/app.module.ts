@@ -10,14 +10,13 @@ import {MyApp} from './app.component';
 import {ReceipeListPage} from '../pages/home/receipe_list';
 import {List01Page} from "../pages/list01/list01";
 import {AboutPage} from "../pages/about/about";
-import {SampleModalPage} from "../pages/sample-modal/sample-modal";
-
 import {HttpProvider} from '../providers/http/http';
 import {AdMobPro} from '@ionic-native/admob-pro';
 import {GlobalVars} from "./constants";
 import {DataProvider} from '../providers/data/data';
 
 import {ImgLoader, IonicImageLoader} from "ionic-image-loader";
+import { SearchModalPage} from "../pages/search-modal/search-modal";
 
 @NgModule({
     declarations: [
@@ -25,13 +24,14 @@ import {ImgLoader, IonicImageLoader} from "ionic-image-loader";
         ReceipeListPage,
         List01Page,
         AboutPage,
-        SampleModalPage
+        SearchModalPage
     ],
     imports: [
         BrowserModule,
         HttpModule,
         IonicModule.forRoot(MyApp),
         IonicImageLoader.forRoot()
+
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -39,7 +39,7 @@ import {ImgLoader, IonicImageLoader} from "ionic-image-loader";
         ReceipeListPage,
         List01Page,
         AboutPage,
-        SampleModalPage
+        SearchModalPage
     ],
     providers: [
         StatusBar,
